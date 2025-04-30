@@ -1,0 +1,47 @@
+.hourglass-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background:  rgb(0, 0, 0); /* Darker red-ish background */
+}
+
+.hourglass-particle {
+  position: absolute;
+  font-family: monospace;
+  font-weight: bold; /* Bolder text */
+  white-space: nowrap;
+  will-change: transform;
+  filter: drop-shadow(0 0 3px #ff0000); /* Red glow */
+}
+
+.hourglass-particle.pile-up {
+  animation-timing-function: ease-in;
+  position: fixed;
+  bottom: 5%;
+  transform-origin: center bottom;
+}
+
+/* Pile formation at bottom */
+.hourglass-bg::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 15%;
+  background: linear-gradient(to top, rgb(0, 0, 0), transparent); /* Red accumulation */
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hourglass-particle {
+    font-size: 90%;
+  }
+}

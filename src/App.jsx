@@ -1,19 +1,19 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
 import Nav from './Header.jsx';
-import PageNavi from './PageNavi.jsx';
 import Home from './Home.jsx';
+import PageNavi from './PageNavi.jsx';
 import About from './About.jsx';
 import Showcase from './Showcase.jsx';
 import Skills from './Skills.jsx';
 import ContactSection from './Contact.jsx';
+import './variables.css';
+import './base.css';
 
 function App() {
   return (
     <Router>
-      <Nav /> {/* Always show Nav */}
-      
+      <Nav />
       <Routes>
         <Route path="/" element={<PageNavi />} />
         <Route path="/home" element={<Home />} />

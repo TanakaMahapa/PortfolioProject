@@ -5,169 +5,98 @@ import React, { useEffect, useState, useRef } from "react";
 // Import Framer Motion components and hooks
 // eslint-disable-next-line no-unused-vars
 import { motion, useMotionValue, useTransform } from "framer-motion";
+import HourGlassBackground from "./CodeRain";
+import "./SkillsCarousel.css";
 
-// Import skill icons
-import SqlImg from "./IconsAssets/sql.jpg";
-import CImg from "./IconsAssets/csharp.jpg";
-import JavaImg from "./IconsAssets/java.jpg";
-import PythonImg from "./IconsAssets/python.jpg";
-import ReactImg from "./IconsAssets/react.jpg";
-import JSImg from "./IconsAssets/js.jpg";
-import CssImg from "./IconsAssets/css.jpg";
-import HtmlImg from "./IconsAssets/html.jpg";
-import FigmaImg from "./IconsAssets/figma.jpg";
-
-import "./App.css";
-
-// Updated TECH_STACK with percentages
-const TECH_STACK = [
-  { title: "SQL", percentage: 63, description: "Structured Query Language", icon: SqlImg },
-  { title: "C#", percentage: 68, description: "Object-oriented language", icon: CImg },
-  { title: "Java", percentage: 85, description: "Cross-platform apps", icon: JavaImg },
-  { title: "Python", percentage: 73, description: "High-level scripting", icon: PythonImg },
-  { title: "React", percentage: 70, description: "UI component library", icon: ReactImg },
-  { title: "JavaScript", percentage: 65, description: "Web scripting", icon: JSImg },
-  { title: "CSS", percentage: 75, description: "Stylesheet language", icon: CssImg },
-  { title: "HTML", percentage: 80, description: "Web markup", icon: HtmlImg },
-  { title: "Figma", percentage: 80, description: "Design & prototyping tool", icon: FigmaImg },
+// Skill data with icons and proficiency levels
+const SKILLS = [
+  { name: "React", level: 85, icon: "react-icon.png", category: "Frontend" },
+  { name: "JavaScript", level: 90, icon: "js-icon.png", category: "Frontend" },
+  { name: "TypeScript", level: 80, icon: "ts-icon.png", category: "Frontend" },
+  { name: "Node.js", level: 75, icon: "node-icon.png", category: "Backend" },
+  { name: "Python", level: 70, icon: "python-icon.png", category: "Backend" },
+  { name: "SQL", level: 85, icon: "sql-icon.png", category: "Database" },
+  { name: "MongoDB", level: 75, icon: "mongo-icon.png", category: "Database" },
+  { name: "Docker", level: 65, icon: "docker-icon.png", category: "DevOps" },
+  { name: "AWS", level: 60, icon: "aws-icon.png", category: "DevOps" },
 ];
 
-// Constants for carousel behavior
-const CARD_WIDTH = 300;
-const GAP = 16;
-const AUTO_SCROLL_MS = 3000;
-const VELOCITY_THRESH = 500;
-const DRAG_BUFFER = 0;
-const SPRING_OPTS = { type: "spring", stiffness: 300, damping: 30 };
+const SkillsCarousel = () => {
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [filteredSkills, setFilteredSkills] = useState(SKILLS);
+  const carouselRef = useRef(null);
+  const x = useMotionValue(0);
 
-function SlideCard({ motionX, index, offset, transition, item }) {
-  const inputRange = [-(index + 1) * offset, -index * offset, -(index - 1) * offset];
-  const outputRange = [90, 0, -90];
-  const rotateY = useTransform(motionX, inputRange, outputRange, { clamp: false });
+  // Filter skills by category
+  useEffect(() => {
+    if (activeCategory === "All") {
+      setFilteredSkills(SKILLS);
+    } else {
+      setFilteredSkills(SKILLS.filter(skill => skill.category === activeCategory));
+    }
+  }, [activeCategory]);
+
+  // Unique categories for filter buttons
+  const categories = ["All", ...new Set(SKILLS.map(skill => skill.category))];
 
   return (
-    <motion.div
-      className="carousel-item"
-      style={{ width: CARD_WIDTH, rotateY }}
-      transition={transition}
-    >
-      <div className="carousel-item-header">
-        <img src={item.icon} alt={item.title} className="carousel-icon" />
-      </div>
-
-      <div className="carousel-item-content">
-        <h3 className="carousel-item-title">{item.title}</h3>
-        <p className="carousel-item-description">{item.description}</p>
+    <div className="skills-container">
+      <HourGlassBackground />
+      
+      <div className="skills-content">
+        <h2 className="skills-title">My Technical Skills</h2>
+        <p className="skills-subtitle">Proficiency across various technologies</p>
         
-        {/* Progress Bar Added Here */}
-        <div className="skill-progress-container">
-          <div 
-            className="skill-progress-bar"
-            style={{ width: `${item.percentage}%` }}
-          ></div>
-          <span className="skill-percentage">{item.percentage}%</span>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-export default function SkillsCarousel() {
-  const containerRef = useRef(null);
-  const motionX = useMotionValue(0);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isResetting, setIsResetting] = useState(false);
-
-  const items = [...TECH_STACK, TECH_STACK[0]];
-  const offset = CARD_WIDTH + GAP;
-  const maxIndex = items.length - 1;
-
-  useEffect(() => {
-    const node = containerRef.current;
-    if (!node) return;
-    const onEnter = () => setIsHovered(true);
-    const onLeave = () => setIsHovered(false);
-    node.addEventListener("mouseenter", onEnter);
-    node.addEventListener("mouseleave", onLeave);
-    return () => {
-      node.removeEventListener("mouseenter", onEnter);
-      node.removeEventListener("mouseleave", onLeave);
-    };
-  }, []);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (!isHovered) setActiveIndex(i => (i === maxIndex ? 0 : i + 1));
-    }, AUTO_SCROLL_MS);
-    return () => clearInterval(timer);
-  }, [isHovered, maxIndex]);
-
-  const handleAnimationComplete = () => {
-    if (activeIndex === maxIndex) {
-      setIsResetting(true);
-      motionX.set(0);
-      setActiveIndex(0);
-      setTimeout(() => setIsResetting(false), 50);
-    }
-  };
-
-  const handleDragEnd = (_, info) => {
-    const { offset, velocity } = info;
-    if (offset.x < -DRAG_BUFFER || velocity.x < -VELOCITY_THRESH) {
-      setActiveIndex(i => Math.min(i + 1, maxIndex));
-    } else if (offset.x > DRAG_BUFFER || velocity.x > VELOCITY_THRESH) {
-      setActiveIndex(i => Math.max(i - 1, 0));
-    }
-  };
-
-  const transition = isResetting ? { duration: 0 } : SPRING_OPTS;
-
-  return (
-    <>
-      <h2 className="carousel-section-title">🛠️ Skills</h2>
-
-      <div
-        ref={containerRef}
-        className="carousel-container"
-        style={{ width: CARD_WIDTH }}
-      >
-        <motion.div
-          className="carousel-track"
-          drag="x"
-          onDragEnd={handleDragEnd}
-          style={{ x: motionX }}
-          animate={{ x: -(activeIndex * offset) }}
-          transition={transition}
-          onAnimationComplete={handleAnimationComplete}
-        >
-          {items.map((item, idx) => (
-            <SlideCard
-              key={idx}
-              motionX={motionX}
-              index={idx}
-              offset={offset}
-              transition={transition}
-              item={item}
-            />
+        {/* Category filters */}
+        <div className="category-filters">
+          {categories.map(category => (
+            <button
+              key={category}
+              className={`category-btn ${activeCategory === category ? 'active' : ''}`}
+              onClick={() => setActiveCategory(category)}
+            >
+              {category}
+            </button>
           ))}
-        </motion.div>
+        </div>
 
-        <div className="carousel-indicators-container">
-          <div className="carousel-indicators">
-            {TECH_STACK.map((_, i) => (
-              <motion.div
-                key={i}
-                className={`carousel-indicator ${
-                  activeIndex % TECH_STACK.length === i ? "active" : "inactive"
-                }`}
-                animate={{ scale: activeIndex % TECH_STACK.length === i ? 1.2 : 1 }}
-                onClick={() => setActiveIndex(i)}
-              />
+        {/* Skills carousel */}
+        <div className="skills-carousel" ref={carouselRef}>
+          <motion.div 
+            className="skills-track"
+            drag="x"
+            dragConstraints={carouselRef}
+            style={{ x }}
+          >
+            {filteredSkills.map((skill, index) => (
+              <motion.div 
+                key={index}
+                className="skill-card"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <div className="skill-icon-container">
+                  <img 
+                    src={`/icons/${skill.icon}`} 
+                    alt={skill.name} 
+                    className="skill-icon"
+                  />
+                </div>
+                <h3 className="skill-name">{skill.name}</h3>
+                <div className="skill-level-container">
+                  <div 
+                    className="skill-level-bar" 
+                    style={{ width: `${skill.level}%` }}
+                  />
+                  <span className="skill-level-text">{skill.level}%</span>
+                </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
-    </>
+    </div>
   );
-}
+};
+
+export default SkillsCarousel;

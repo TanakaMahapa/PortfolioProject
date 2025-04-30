@@ -1,0 +1,92 @@
+.portfolio-header {
+  width: 100%;
+  padding: 0.5rem 0;
+  background-color: #1a1a1a;
+  color: white;
+  font-family: 'Bebas Neue', sans-serif;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.portfolio-name {
+  font-size: 1.8rem;
+  letter-spacing: 3px;
+  margin: 0.3rem 0;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.portfolio-nav {
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.nav-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2rem 0;
+}
+
+.nav-cell {
+  padding: 0 0.8rem;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  transition: color 0.2s ease;
+  text-transform: uppercase;
+}
+
+.nav-cell:hover {
+  color: #E50814;
+}
+
+.nav-cell.active {
+  color: #E50814;
+  font-weight: bold;
+}
+
+.nav-divider {
+  color: #555;
+  font-weight: bold;
+  font-size: 1rem;
+  user-select: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .portfolio-name {
+    font-size: 1.5rem;
+  }
+  
+  .nav-cell {
+    font-size: 0.9rem;
+    padding: 0 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .portfolio-name {
+    font-size: 1.3rem;
+    margin: 0.2rem 0;
+  }
+  
+  .nav-row {
+    flex-wrap: wrap;
+    padding: 0.1rem 0;
+  }
+  
+  .nav-divider {
+    display: none;
+  }
+  
+  .nav-cell {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}

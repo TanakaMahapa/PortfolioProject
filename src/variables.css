@@ -1,0 +1,30 @@
+:root {
+    /* Colors */
+    --primary-bg: #1a1a1a;
+    --secondary-bg: #1e1e1e;
+    --nav-bg: #181717;
+    --accent-red: #E50814;
+    --accent-red-light: #ff4d4d;
+    --text-white: #ffffff;
+    --text-gray: #ccc;
+    
+    /* Typography */
+    --font-primary: 'Bebas Neue', sans-serif;
+    --font-secondary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* Spacing */
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 2rem;
+    --space-xl: 3rem;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 8px rgba(0,0,0,0.3);
+    --shadow-glow-red: 0 0 20px rgba(229, 8, 20, 0.8);
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-medium: 0.3s ease;
+    --transition-slow: 0.5s ease;
+  }

@@ -1,0 +1,47 @@
+@import './variables.css';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--primary-bg);
+  font-family: var(--font-primary);
+  color: var(--text-white);
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Utility Classes */
+.RedText {
+  color: var(--accent-red);
+}
+
+.text-white {
+  color: var(--text-white);
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.page-content {
+  min-height: 100vh;
+  padding: 100px var(--space-md) var(--space-md);
+  position: relative;
+  z-index: 1;
+}

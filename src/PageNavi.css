@@ -1,0 +1,128 @@
+@import './variables.css';
+
+.page-navi-container {
+  min-height: 100vh;
+  padding: 2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  transition: all var(--transition-medium);
+}
+
+.nav-item:hover {
+  transform: translateY(-5px);
+}
+
+.nav-card {
+  width: 250px;
+  height: 350px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+  transition: all var(--transition-medium);
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.nav-card:hover {
+  transform: scale(1.05);
+}
+
+.nav-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.nav-item:hover .nav-image {
+  transform: scale(1.1);
+}
+
+.nav-label {
+  font-size: 1.2rem;
+  color: var(--text-white);
+  margin-top: 0.5rem;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+/* Category-specific hover effects */
+.nav-item.home:hover .nav-card {
+  box-shadow: 0 0 30px 10px rgba(0, 123, 255, 0.4);
+}
+
+.nav-item.about:hover .nav-card {
+  box-shadow: 0 0 30px 10px rgba(255, 30, 30, 0.4);
+}
+
+.nav-item.projects:hover .nav-card {
+  box-shadow: 0 0 30px 10px rgba(0, 200, 180, 0.4);
+}
+
+.nav-item.skills:hover .nav-card {
+  box-shadow: 0 0 30px 10px rgba(0, 100, 255, 0.4);
+}
+
+.nav-item.contact:hover .nav-card {
+  box-shadow: 0 0 30px 10px rgba(255, 180, 0, 0.4);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .nav-grid {
+    gap: 1.5rem;
+  }
+  
+  .nav-card {
+    width: 200px;
+    height: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .nav-card {
+    width: 160px;
+    height: 220px;
+  }
+  
+  .nav-label {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .nav-card {
+    width: 100%;
+    max-width: 300px;
+    height: 250px;
+  }
+}
