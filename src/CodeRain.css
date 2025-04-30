@@ -1,0 +1,39 @@
+/* Container for the rain */
+.code-rain-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -1;
+    pointer-events: none;
+  }
+  
+  
+  /* Individual code drops */
+  .code-drop {
+    position: absolute;
+    top: -10%; /* Start slightly above the visible area */
+    color: #E50814; /* Red falling symbols */
+    opacity: 0.7;
+    font-family: 'Courier New', monospace;
+    animation-name: codeRainFall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    user-select: none;
+    text-shadow: 0 0 5px red; /* Glow effect */
+  }
+  
+  /* Keyframes for falling motion */
+  @keyframes codeRainFall {
+    0% {
+      top: -10%;    /* Starting point above the screen */
+      opacity: 0.5; /* Slight transparency */
+    }
+    100% {
+      top: 110%;    /* Falls past the bottom */
+      opacity: 0;   /* Fades out at the end */
+    }
+  }
+  
