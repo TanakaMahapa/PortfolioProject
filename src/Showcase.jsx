@@ -28,7 +28,7 @@ function Showcase() {
     <div className="showcase-container">
       <HourGlassBackground />
       
-      <section className="projects-section">
+      
         <div className="section-header">
           <h2 className="section-title">📌 Projects</h2>
           <p className="section-subtitle">Explore a collection of my work</p>
@@ -54,7 +54,7 @@ function Showcase() {
             </div>
           ))}
         </div>
-      </section>
+     
     </div>
   );
 }

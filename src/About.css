@@ -1,36 +1,117 @@
-@import './variables.css';
+.page-content {
+  min-height: 100vh;
+  padding: 100px 2rem;
+  position: relative;
+  background-color: #1a1a1a;
+}
 
-.text-container2 {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  background-color: var(--primary-bg);
+.about-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.text-content {
+  flex: 1;
+  min-width: 320px;
+  color: white;
+}
+
+.about-title {
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.sub-heading {
+  font-size: 1.6rem;
+  display: block;
+  color: white;
+  font-weight: 500;
+}
+
+.about-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.image-half {
+  flex: 0 1 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .OneImg2 {
-  margin: var(--space-lg);
-  background-color: rgb(128, 128, 128);
-  padding: var(--space-md);
-  border-radius: 38%;
-  grid-area: 1 / 3 / 5 / 4;
+  width: 100%;
+  max-width: 300px;
+  height: 300px;
+  background-image: url('/your-image-path.jpg'); /* Replace with actual image path */
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
-#Btn {
-  justify-content: space-between;
-  grid-area: 5/3/6/3;
-  padding: var(--space-md);
+.about-button {
+  margin-top: 1.5rem;
 }
 
 .HomeBtnCV {
-  background-color: var(--accent-red);
-  color: var(--text-white);
-  padding: var(--space-sm) var(--space-lg);
+  background-color: #E11D48;
+  color: white;
+  padding: 0.8rem 2rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 1rem;
   cursor: pointer;
-  transition: all var(--transition-medium);
+  transition: all 0.3s ease;
 }
 
 .HomeBtnCV:hover {
   background-color: #991B1B;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .text-content {
+    width: 100%;
+  }
+
+  .image-half {
+    width: 100%;
+    margin-top: 2rem;
+  }
+
+  .OneImg2 {
+    max-width: 250px;
+    height: 250px;
+  }
+
+  .about-title {
+    font-size: 2rem;
+  }
+
+  .sub-heading {
+    font-size: 1.3rem;
+  }
+
+  .HomeBtnCV {
+    width: 100%;
+  }
 }

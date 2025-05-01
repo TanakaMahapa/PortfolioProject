@@ -12,13 +12,10 @@ import "./SkillsCarousel.css";
 const SKILLS = [
   { name: "React", level: 85, icon: "react-icon.png", category: "Frontend" },
   { name: "JavaScript", level: 90, icon: "js-icon.png", category: "Frontend" },
-  { name: "TypeScript", level: 80, icon: "ts-icon.png", category: "Frontend" },
   { name: "Node.js", level: 75, icon: "node-icon.png", category: "Backend" },
   { name: "Python", level: 70, icon: "python-icon.png", category: "Backend" },
   { name: "SQL", level: 85, icon: "sql-icon.png", category: "Database" },
-  { name: "MongoDB", level: 75, icon: "mongo-icon.png", category: "Database" },
-  { name: "Docker", level: 65, icon: "docker-icon.png", category: "DevOps" },
-  { name: "AWS", level: 60, icon: "aws-icon.png", category: "DevOps" },
+  
 ];
 
 const SkillsCarousel = () => {

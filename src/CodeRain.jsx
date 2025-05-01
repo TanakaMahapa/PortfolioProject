@@ -75,7 +75,7 @@ const HourGlassBackground = () => {
           {particle.symbol}
         </span>
       ))}
-    </div>
+    </div> 
   );
 };
 

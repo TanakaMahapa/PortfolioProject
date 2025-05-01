@@ -5,7 +5,7 @@ function ContactSection() {
   return (
     <div className="page-content">
       <HourGlassBackground />
-      <div className="contact-section">
+      
         <div className="form-container">
           <h2 className="form-title">Get in touch</h2>
           <form className="form-grid" action="tanakamahapa5@gmail.com" method="POST">
@@ -19,7 +19,7 @@ function ContactSection() {
             </div>
           </form>
         </div>
-      </div>
+    
     </div>
   );
 }
