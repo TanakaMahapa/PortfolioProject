@@ -5,35 +5,61 @@ import React, { useEffect, useState, useRef } from "react";
 // Import Framer Motion components and hooks
 // eslint-disable-next-line no-unused-vars
 import { motion, useMotionValue, useTransform } from "framer-motion";
-import HourGlassBackground from "./CodeRain";
 import "./SkillsCarousel.css";
+import HourGlassBackground from "./CodeRain";
 
-// Skill data with icons and proficiency levels
+// Import all skill icons
+import csharp from "./IconsAssets/csharp.jpg";
+import css from "./IconsAssets/css.jpg";
+import figma from "./IconsAssets/figma.jpg";
+import html from "./IconsAssets/html.jpg";
+import js from "./IconsAssets/js.jpg";
+import react from "./IconsAssets/react.jpg";
+import java from "./IconsAssets/java.jpg";
+import python from "./IconsAssets/python.jpg";
+import sql from "./IconsAssets/sql.jpg";
+
 const SKILLS = [
-  { name: "React", level: 85, icon: "react-icon.png", category: "Frontend" },
-  { name: "JavaScript", level: 90, icon: "js-icon.png", category: "Frontend" },
-  { name: "Node.js", level: 75, icon: "node-icon.png", category: "Backend" },
-  { name: "Python", level: 70, icon: "python-icon.png", category: "Backend" },
-  { name: "SQL", level: 85, icon: "sql-icon.png", category: "Database" },
-  
+  { name: "React", level: 72, icon: react, category: "Frontend" },
+  { name: "JavaScript", level: 65, icon: js, category: "Frontend" },
+  { name: "Figma", level: 80, icon: figma, category: "Design" },
+  { name: "Python", level: 70, icon: python, category: "Backend" },
+  { name: "SQL", level: 65, icon: sql, category: "Database" },
+  { name: "HTML", level: 75, icon: html, category: "Frontend" },
+  { name: "CSS", level: 70, icon: css, category: "Frontend" },
+  { name: "Java", level: 80, icon: java, category: "Backend" },
+  { name: "C#", level: 75, icon: csharp, category: "Backend" }
 ];
 
 const SkillsCarousel = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [filteredSkills, setFilteredSkills] = useState(SKILLS);
   const carouselRef = useRef(null);
+  const trackRef = useRef(null);
   const x = useMotionValue(0);
 
-  // Filter skills by category
+  // Calculate required track width
+  const calculateTrackWidth = () => {
+    const itemWidth = 200; // Match your CSS min-width
+    const gap = 32; // 2rem gap
+    return filteredSkills.length * (itemWidth + gap) - gap;
+  };
+
+  // Update when filtered skills change
   useEffect(() => {
     if (activeCategory === "All") {
       setFilteredSkills(SKILLS);
     } else {
       setFilteredSkills(SKILLS.filter(skill => skill.category === activeCategory));
     }
-  }, [activeCategory]);
+    
+    // Reset position and update track width
+    x.set(0);
+    if (trackRef.current) {
+      trackRef.current.style.width = `${calculateTrackWidth()}px`;
+    }
+  }, [activeCategory, x]);
 
-  // Unique categories for filter buttons
   const categories = ["All", ...new Set(SKILLS.map(skill => skill.category))];
 
   return (
@@ -41,10 +67,9 @@ const SkillsCarousel = () => {
       <HourGlassBackground />
       
       <div className="skills-content">
-        <h2 className="skills-title">My Technical Skills</h2>
-        <p className="skills-subtitle">Proficiency across various technologies</p>
+        <h2 className="skills-title">🛠️ My Technical Skills</h2>
+        <p className="skills-subtitle">Drag to explore my proficiency across technologies</p>
         
-        {/* Category filters */}
         <div className="category-filters">
           {categories.map(category => (
             <button
@@ -57,12 +82,15 @@ const SkillsCarousel = () => {
           ))}
         </div>
 
-        {/* Skills carousel */}
         <div className="skills-carousel" ref={carouselRef}>
           <motion.div 
             className="skills-track"
+            ref={trackRef}
             drag="x"
-            dragConstraints={carouselRef}
+            dragConstraints={{
+              left: -(calculateTrackWidth() - (carouselRef.current?.offsetWidth || 0)),
+              right: 0
+            }}
             style={{ x }}
           >
             {filteredSkills.map((skill, index) => (
@@ -73,11 +101,16 @@ const SkillsCarousel = () => {
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
                 <div className="skill-icon-container">
-                  <img 
-                    src={`/icons/${skill.icon}`} 
-                    alt={skill.name} 
-                    className="skill-icon"
-                  />
+                  {skill.icon ? (
+                    <img 
+                      src={skill.icon} 
+                      alt={skill.name}
+                      className="skill-icon"
+                      onError={(e) => e.target.style.display = 'none'}
+                    />
+                  ) : (
+                    <div className="skill-icon-fallback">{skill.name.charAt(0)}</div>
+                  )}
                 </div>
                 <h3 className="skill-name">{skill.name}</h3>
                 <div className="skill-level-container">

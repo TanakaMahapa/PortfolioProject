@@ -3,79 +3,51 @@ import "./HourGlassBackground.css";
 
 const HourGlassBackground = () => {
   const [particles, setParticles] = useState([]);
-  const symbols = ["<>", "</>", "{}", "[]", "()", "*", "#", "//", "=>", "<=>"]; // Added more symbols
+  const symbols = ["<>", "{}", "()", "*"]; // Simple symbol set
 
   useEffect(() => {
     const createParticles = () => {
-      const particleCount = Math.floor(window.innerWidth / 12); // Increased density
-      const newParticles = Array.from({ length: particleCount }, (_, i) => {
-        const left = Math.random() * 100;
-        const duration = Math.random() * 3 + 2; // Faster (2-5 seconds)
-        const delay = Math.random() * 5;
-        const fontSize = Math.random() * 12 + 10; // Slightly larger
-        const opacity = Math.random() * 0.7 + 0.3; // More visible
-        
-        return {
-          id: Date.now() + i,
-          symbol: symbols[Math.floor(Math.random() * symbols.length)],
-          left,
-          duration,
-          delay,
-          fontSize,
-          opacity,
-          keyframes: `@keyframes pileUp-${Date.now() + i} {
-            0% { 
-              top: -5%; 
-              opacity: 0; 
-              transform: translate(0, 0) rotate(0deg);
-            }
-            10% { 
-              opacity: ${opacity};
-            }
-            90% { 
-              opacity: ${opacity * 0.8};
-            }
-            100% { 
-              top: 85%; 
-              opacity: ${opacity * 0.5};
-              transform: translate(${(Math.random() - 0.5) * 30}px, 0) rotate(${Math.random() * 20 - 10}deg);
-            }
-          }`
-        };
-      });
+      const particleCount = Math.floor(window.innerWidth / 25); // Reduced density
+      const newParticles = Array.from({ length: particleCount }, (_, i) => ({
+        id: Date.now() + i,
+        symbol: symbols[Math.floor(Math.random() * symbols.length)],
+        left: Math.random() * 100,
+        duration: Math.random() * 8 + 4, // Slower fall (4-12 seconds)
+        delay: Math.random() * 3,
+        fontSize: Math.random() * 10 + 10,
+        opacity: Math.random() * 0.2 + 0.1, // Very transparent (0.1-0.3)
+        rotation: Math.random() * 15 - 7.5,
+        drift: (Math.random() - 0.5) * 15
+      }));
 
-      setParticles(newParticles);
+      setParticles(prev => [...prev.slice(-75), ...newParticles]); // Fewer total particles
     };
 
-    createParticles();
-    const interval = setInterval(createParticles, 2000); // More frequent generation
-
+    const interval = setInterval(createParticles, 1500); // Less frequent generation
     return () => clearInterval(interval);
   }, []);
 
   return (
     <div className="hourglass-bg">
-      <style>
-        {particles.map(particle => particle.keyframes)}
-      </style>
       {particles.map((particle) => (
-        <span
+        <div
           key={particle.id}
-          className="hourglass-particle pile-up"
+          className="hourglass-particle"
           style={{
             left: `${particle.left}%`,
-            animation: `pileUp-${particle.id} ${particle.duration}s linear ${particle.delay}s infinite`,
+            animation: `fallAndPile ${particle.duration}s linear ${particle.delay}s forwards`,
             fontSize: `${particle.fontSize}px`,
             opacity: particle.opacity,
-            color: '#ff3333', // Bright red color
-            textShadow: '0 0 5px #ff0000', // Red glow
-            animationFillMode: 'forwards'
+            color: 'rgba(255, 80, 80, 0.4)', // Very transparent red
+            transform: `rotate(${particle.rotation}deg)`,
+            '--drift': `${particle.drift}px`,
+            '--final-opacity': `${particle.opacity * 0.3}` // Nearly disappears at bottom
           }}
         >
           {particle.symbol}
-        </span>
+        </div>
       ))}
-    </div> 
+    </div>
   );
 };
 

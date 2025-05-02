@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./PageNavi.css"; // Specific CSS for this component
-import HourGlassBackground from "./CodeRain"; // Updated background component
+import "./PageNavi.css";
+import HourGlassBackground from "./CodeRain";
 
 // Import images
 import homeImg from "./images/HomePage.jpg";
@@ -15,7 +15,7 @@ function PageNavi() {
     <div className="page-navi-container">
       <HourGlassBackground />
       
-      <div className="nav-grid">
+      <div className="nav-row">
         <Link to="/home" className="nav-item home">
           <div className="nav-card">
             <img src={homeImg} alt="Home" className="nav-image" />

@@ -7,26 +7,37 @@
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
-  background:  rgb(0, 0, 0); /* Darker red-ish background */
+  background: rgb(0, 0, 0);
+}
+
+@keyframes fallAndPile {
+  0% { 
+    top: -10%; 
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  20% { 
+    opacity: var(--initial-opacity);
+  }
+  100% { 
+    top: 95%; 
+    opacity: var(--final-opacity);
+    transform: translate(var(--drift), 0) rotate(var(--rotation));
+  }
 }
 
 .hourglass-particle {
   position: absolute;
   font-family: monospace;
-  font-weight: bold; /* Bolder text */
+  font-weight: bold;
   white-space: nowrap;
   will-change: transform;
-  filter: drop-shadow(0 0 3px #ff0000); /* Red glow */
+  animation-fill-mode: forwards;
+  transform-origin: center;
+  text-shadow: 0 0 6px rgba(255, 50, 50, 0.2); /* Very subtle glow */
 }
 
-.hourglass-particle.pile-up {
-  animation-timing-function: ease-in;
-  position: fixed;
-  bottom: 5%;
-  transform-origin: center bottom;
-}
-
-/* Pile formation at bottom */
+/* Extremely subtle pile effect */
 .hourglass-bg::after {
   content: '';
   position: absolute;
@@ -34,14 +45,9 @@
   left: 0;
   width: 100%;
   height: 15%;
-  background: linear-gradient(to top, rgb(0, 0, 0), transparent); /* Red accumulation */
+  background: linear-gradient(to top, 
+    rgba(255, 50, 50, 0.05) 0%, 
+    transparent 100%);
   pointer-events: none;
-  z-index: 1;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .hourglass-particle {
-    font-size: 90%;
-  }
+  mix-blend-mode: screen;
 }

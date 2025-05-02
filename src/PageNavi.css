@@ -8,16 +8,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-x: auto; /* Allows horizontal scrolling if needed */
 }
 
-.nav-grid {
+.nav-row {
   display: flex;
   justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-  margin-top: 3rem;
-  max-width: 1200px;
-  width: 100%;
+  gap: 1.5rem;
+  padding: 1rem;
+  width: max-content;
+  max-width: 100%;
 }
 
 .nav-item {
@@ -26,25 +26,18 @@
   align-items: center;
   text-decoration: none;
   transition: all var(--transition-medium);
-}
-
-.nav-item:hover {
-  transform: translateY(-5px);
+  flex-shrink: 0; /* Prevents items from shrinking */
 }
 
 .nav-card {
-  width: 250px;
-  height: 350px;
+  width: 180px;
+  height: 250px;
   border-radius: 0.5rem;
   overflow: hidden;
   margin-bottom: 0.5rem;
   transition: all var(--transition-medium);
   box-shadow: var(--shadow-md);
   position: relative;
-}
-
-.nav-card:hover {
-  transform: scale(1.05);
 }
 
 .nav-image {
@@ -54,16 +47,24 @@
   transition: transform var(--transition-slow);
 }
 
-.nav-item:hover .nav-image {
-  transform: scale(1.1);
-}
-
 .nav-label {
   font-size: 1.2rem;
   color: var(--text-white);
   margin-top: 0.5rem;
   font-weight: 500;
-  transition: color var(--transition-fast);
+}
+
+/* Hover effects */
+.nav-item:hover {
+  transform: translateY(-5px);
+}
+
+.nav-item:hover .nav-card {
+  transform: scale(1.05);
+}
+
+.nav-item:hover .nav-image {
+  transform: scale(1.1);
 }
 
 /* Category-specific hover effects */
@@ -89,25 +90,21 @@
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
-  .nav-grid {
-    gap: 1.5rem;
-  }
-  
   .nav-card {
-    width: 200px;
-    height: 280px;
+    width: 150px;
+    height: 200px;
   }
 }
 
 @media (max-width: 768px) {
-  .nav-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .nav-row {
     gap: 1rem;
+    padding: 0.5rem;
   }
   
   .nav-card {
-    width: 160px;
-    height: 220px;
+    width: 120px;
+    height: 160px;
   }
   
   .nav-label {
@@ -116,13 +113,12 @@
 }
 
 @media (max-width: 480px) {
-  .nav-grid {
-    grid-template-columns: 1fr;
+  .nav-card {
+    width: 100px;
+    height: 140px;
   }
   
-  .nav-card {
-    width: 100%;
-    max-width: 300px;
-    height: 250px;
+  .nav-label {
+    font-size: 0.9rem;
   }
 }
