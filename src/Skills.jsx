@@ -13,7 +13,7 @@ import csharp from "./IconsAssets/csharp.jpg";
 import css from "./IconsAssets/css.jpg";
 import figma from "./IconsAssets/figma.jpg";
 import html from "./IconsAssets/html.jpg";
-import js from "./IconsAssets/js.jpg";
+// import js from "./IconsAssets/js.jpg";
 import react from "./IconsAssets/react.jpg";
 import java from "./IconsAssets/java.jpg";
 import python from "./IconsAssets/python.jpg";
@@ -21,7 +21,7 @@ import sql from "./IconsAssets/sql.jpg";
 
 const SKILLS = [
   { name: "React", level: 72, icon: react, category: "Frontend" },
-  { name: "JavaScript", level: 65, icon: js, category: "Frontend" },
+ // { name: "JavaScript", level: 65, icon: js, category: "Frontend" },
   { name: "Figma", level: 80, icon: figma, category: "Design" },
   { name: "Python", level: 70, icon: python, category: "Backend" },
   { name: "SQL", level: 65, icon: sql, category: "Database" },
