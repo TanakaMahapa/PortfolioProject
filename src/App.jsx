@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Nav from './Header.jsx';
-// import Home from './Home.jsx';
+import Home from './Home.jsx';
 import PageNavi from './PageNavi.jsx';
 import About from './About.jsx';
 import Showcase from './Showcase.jsx';
@@ -16,7 +16,7 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<PageNavi />} />
-        {/* <Route path="/home" element={<Home />} /> */}
+        {<Route path="/home" element={<Home />} /> }
         <Route path="/about" element={<About />} />
         <Route path="/projects" element={<Showcase />} />
         <Route path="/skills" element={<Skills />} />

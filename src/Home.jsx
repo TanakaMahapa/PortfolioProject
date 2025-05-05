@@ -1,7 +1,7 @@
 import { useEffect, useRef, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import HourGlassBackground from './HourGlassBackground';
+import './HourGlassBackground.css';
 import './Home.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -94,7 +94,6 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <HourGlassBackground />
       <div ref={containerRef} className="scroll-reveal">
         {Object.entries(content).map(([title, points], sectionIndex) => (
           <div key={sectionIndex} className="content-section">
