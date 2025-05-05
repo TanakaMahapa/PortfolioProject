@@ -9,7 +9,6 @@ gsap.registerPlugin(ScrollTrigger);
 const Home = () => {
   const containerRef = useRef(null);
 
-  // Organized content with three sections
   const content = useMemo(() => ({
     "Who I Am": [
       "Hi I'm Tanaka Mahapa",
@@ -34,7 +33,7 @@ const Home = () => {
 
     const scroller = window;
 
-    // Container animation
+    // Rotate container
     gsap.fromTo(
       el,
       { transformOrigin: '0% 50%', rotate: 3 },
@@ -44,48 +43,34 @@ const Home = () => {
           trigger: el,
           scroller,
           start: 'top bottom',
-          end: "bottom bottom",
+          end: 'bottom bottom',
           scrub: true,
         },
       }
     );
 
-    // Word animations
+    // Animate words (opacity + blur)
     const wordElements = el.querySelectorAll('.word');
-    const contentElements = el.querySelectorAll('.content-section');
 
-    // Fade in words
     gsap.fromTo(
       wordElements,
-      { opacity: 0.1 },
+      {
+        opacity: 0.1,
+        filter: 'blur(8px)',
+        willChange: 'opacity, filter',
+      },
       {
         opacity: 1,
+        filter: 'blur(0px)',
+        ease: 'none',
         stagger: 0.05,
         scrollTrigger: {
           trigger: el,
           scroller,
           start: 'top bottom-=20%',
-          end: "bottom bottom",
+          end: 'bottom bottom',
           scrub: true,
         },
-      }
-    );
-
-    // Blur effects
-    gsap.fromTo(
-      contentElements,
-      { filter: 'blur(0px)' },
-      {
-        filter: 'blur(8px)',
-        scrollTrigger: {
-          trigger: contentElements,
-          scroller,
-          start: 'top center',
-          end: 'bottom top',
-          scrub: true,
-          onLeave: () => gsap.to(contentElements, { filter: 'blur(8px)' }),
-          onEnterBack: () => gsap.to(contentElements, { filter: 'blur(0px)' })
-        }
       }
     );
 
@@ -98,14 +83,17 @@ const Home = () => {
         {Object.entries(content).map(([title, points], sectionIndex) => (
           <div key={sectionIndex} className="content-section">
             <h3 className="section-title">{title}</h3>
-            <p className="scroll-reveal-text">
-              {points.map((point, i) => (
-                <span key={i} className="word">
-                  {point}
-                  {i < points.length - 1 ? ' • ' : ''}
-                </span>
-              ))}
-            </p>
+            {points.map((sentence, sentenceIndex) => (
+              <p key={sentenceIndex} className="scroll-reveal-text">
+                {sentence.split(/(\s+)/).map((word, wordIndex) =>
+                  word.match(/^\s+$/) ? word : (
+                    <span key={wordIndex} className="word">
+                      {word}
+                    </span>
+                  )
+                )}
+              </p>
+            ))}
           </div>
         ))}
       </div>
