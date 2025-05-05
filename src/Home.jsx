@@ -1,7 +1,6 @@
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import './HourGlassBackground.css';
 import './Home.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -9,31 +8,13 @@ gsap.registerPlugin(ScrollTrigger);
 const Home = () => {
   const containerRef = useRef(null);
 
-  const content = useMemo(() => ({
-    "Who I Am": [
-      "Hi I'm Tanaka Mahapa",
-      "Welcome to my Software Development Journey",
-      "I'm a hands-on software development student at Belgium Campus who geeks out over turning complex problems into elegant solutions."
-    ],
-    "What I Do": [
-      "Breaking (and fixing) code late into the night",
-      "Approaching challenges with creativity and grit",
-      "Celebrating small wins in tech"
-    ],
-    "What I've Built": [
-      "Solutions that make people's lives easier",
-      "Projects with real-world impact",
-      "Skills through late-night study sessions and tricky algorithms"
-    ]
-  }), []);
-
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
     const scroller = window;
 
-    // Rotate container
+    // Rotate on scroll
     gsap.fromTo(
       el,
       { transformOrigin: '0% 50%', rotate: 3 },
@@ -49,20 +30,32 @@ const Home = () => {
       }
     );
 
-    // Animate words (opacity + blur)
+    // Word animations
     const wordElements = el.querySelectorAll('.word');
 
+    // Fade in
     gsap.fromTo(
       wordElements,
-      {
-        opacity: 0.1,
-        filter: 'blur(8px)',
-        willChange: 'opacity, filter',
-      },
+      { opacity: 0.1 },
       {
         opacity: 1,
+        stagger: 0.05,
+        scrollTrigger: {
+          trigger: el,
+          scroller,
+          start: 'top bottom-=20%',
+          end: 'bottom bottom',
+          scrub: true,
+        },
+      }
+    );
+
+    // Blur
+    gsap.fromTo(
+      wordElements,
+      { filter: 'blur(8px)' },
+      {
         filter: 'blur(0px)',
-        ease: 'none',
         stagger: 0.05,
         scrollTrigger: {
           trigger: el,
@@ -77,25 +70,38 @@ const Home = () => {
     return () => ScrollTrigger.getAll().forEach(trigger => trigger.kill());
   }, []);
 
+  const splitWords = (sentence) =>
+    sentence.split(/(\s+)/).map((word, i) =>
+      word.match(/^\s+$/) ? word : <span key={i} className="word">{word}</span>
+    );
+
   return (
     <div className="home-container">
       <div ref={containerRef} className="scroll-reveal">
-        {Object.entries(content).map(([title, points], sectionIndex) => (
-          <div key={sectionIndex} className="content-section">
-            <h3 className="section-title">{title}</h3>
-            {points.map((sentence, sentenceIndex) => (
-              <p key={sentenceIndex} className="scroll-reveal-text">
-                {sentence.split(/(\s+)/).map((word, wordIndex) =>
-                  word.match(/^\s+$/) ? word : (
-                    <span key={wordIndex} className="word">
-                      {word}
-                    </span>
-                  )
-                )}
-              </p>
-            ))}
-          </div>
-        ))}
+        <section className="content-section">
+          <h3 className="section-title">Who I Am</h3>
+          <p className="scroll-reveal-text">{splitWords("Hi I'm Tanaka Mahapa")}</p>
+          <p className="scroll-reveal-text">{splitWords("Welcome to my Software Development Journey")}</p>
+          <p className="scroll-reveal-text">
+            {splitWords("I'm a hands-on software development student at Belgium Campus who geeks out over turning complex problems into elegant solutions.")}
+          </p>
+        </section>
+
+        <section className="content-section">
+          <h3 className="section-title">What I Do</h3>
+          <p className="scroll-reveal-text">{splitWords("Breaking (and fixing) code late into the night")}</p>
+          <p className="scroll-reveal-text">{splitWords("Approaching challenges with creativity and grit")}</p>
+          <p className="scroll-reveal-text">{splitWords("Celebrating small wins in tech")}</p>
+        </section>
+
+        <section className="content-section">
+          <h3 className="section-title">What I've Built</h3>
+          <p className="scroll-reveal-text">{splitWords("Solutions that make people's lives easier")}</p>
+          <p className="scroll-reveal-text">{splitWords("Projects with real-world impact")}</p>
+          <p className="scroll-reveal-text">
+            {splitWords("Skills through late-night study sessions and tricky algorithms")}
+          </p>
+        </section>
       </div>
     </div>
   );
