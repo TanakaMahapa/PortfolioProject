@@ -1,5 +1,8 @@
 import './About.css';
 import HourGlassBackground from "./CodeRain";
+import MyImg from './IconsAssets/MyImg.jpg';
+
+
 
 function About() { 
   return (
@@ -45,12 +48,19 @@ function About() {
           </div>
 
           <div className="about-button">
+
+            <a href="Tanaka_Mahapa_Internship_CV.pdf" download="Tanaka_Mahapa_Internship_CV.pdf">
             <button className='HomeBtnCV'>Download CV</button>
+            </a>
+            
+            
           </div>
         </div>
 
         <div className="image-half">
-          <div className='OneImg2' />
+          <div className='OneImg2'>
+            <img src={MyImg} alt="Tanaka Mahapa" className="profile-image" />
+          </div>
         </div>
       </div>
     </div>
