@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Home.css';
 import RollingGallery from './RollingGallery';
 import Prj1 from './ProjectImages/Prj1.png';
-import Prj2 from './ProjectImages/Prj2.png';
+import Prj2 from './ProjectImages/Prj2.jpg';
 import Prj3 from './ProjectImages/Prj3.png';
 import Prj4 from './ProjectImages/Prj4.png';
 import Prj5 from './ProjectImages/Prj5.png';
