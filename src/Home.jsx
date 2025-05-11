@@ -1,116 +1,45 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useRef, useEffect } from 'react';
 import './Home.css';
-import HourGlassBackground from "./CodeRain";  // Import the CodeRain component
-import Prj1 from './ProjectImages/Prj1.png';
-import Prj2 from './ProjectImages/Prj2.jpg';
-import Prj3 from './ProjectImages/Prj3.png';
-import Prj4 from './ProjectImages/Prj4.png';
-import Prj5 from './ProjectImages/Prj5.png';
-
-gsap.registerPlugin(ScrollTrigger);
-
-const IMGS = [Prj1, Prj2, Prj3, Prj4, Prj5];
 
 const Home = () => {
-  const containerRef = useRef(null);
+  const lightRef = useRef(null);
 
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const scroller = window;
-
-    // Rotate on scroll
-    gsap.fromTo(
-      el,
-      { transformOrigin: '0% 50%', rotate: 3 },
-      {
-        rotate: 0,
-        scrollTrigger: {
-          trigger: el,
-          scroller,
-          start: 'top bottom',
-          end: 'bottom bottom',
-          scrub: true,
-        },
+    const handleMouseMove = (e) => {
+      if (lightRef.current) {
+        const { clientX, clientY } = e;
+        const { left, top } = lightRef.current.getBoundingClientRect();
+        const x = (clientX - left) / 20;
+        const y = (clientY - top) / 20;
+        lightRef.current.style.transform = `translate(${x}px, ${y}px)`;
       }
-    );
+    };
 
-    // Word animations
-    const wordElements = el.querySelectorAll('.word');
-
-    // Fade in
-    gsap.fromTo(
-      wordElements,
-      { opacity: 0.1 },
-      {
-        opacity: 1,
-        stagger: 0.05,
-        scrollTrigger: {
-          trigger: el,
-          scroller,
-          start: 'top bottom-=20%',
-          end: 'bottom bottom',
-          scrub: true,
-        },
-      }
-    );
-
-    // Blur
-    gsap.fromTo(
-      wordElements,
-      { filter: 'blur(8px)' },
-      {
-        filter: 'blur(0px)',
-        stagger: 0.05,
-        scrollTrigger: {
-          trigger: el,
-          scroller,
-          start: 'top bottom-=20%',
-          end: 'bottom bottom',
-          scrub: true,
-        },
-      }
-    );
-
-    return () => ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
-
-  const splitWords = (sentence) =>
-    sentence.split(/(\s+)/).map((word, i) =>
-      word.match(/^\s+$/) ? word : <span key={i} className="word">{word}</span>
-    );
 
   return (
     <div className="home-container">
-      <HourGlassBackground />  {/* Include CodeRain */}
-      <div ref={containerRef} className="scroll-reveal">
-        <section className="content-section">
-          <h3 className="section-title">Who I Am</h3>
-          <p className="scroll-reveal-text">{splitWords("Hi I'm Tanaka Mahapa")}</p>
-          <p className="scroll-reveal-text">{splitWords("Welcome to my Software Development Journey")}</p>
-          <p className="scroll-reveal-text">
-            {splitWords("I'm a hands-on software development student at Belgium Campus who geeks out over turning complex problems into elegant solutions.")}
-          </p>
-        </section>
-
-        <section className="content-section">
-          <h3 className="section-title">What I Do</h3>
-          <p className="scroll-reveal-text">{splitWords("Breaking (and fixing) code late into the night")}</p>
-          <p className="scroll-reveal-text">{splitWords("Approaching challenges with creativity and grit")}</p>
-          <p className="scroll-reveal-text">{splitWords("Celebrating small wins in tech")}</p>
-        </section>
-
-        <section className="content-section">
-          <h3 className="section-title">What I've Built</h3>
-          <p className="scroll-reveal-text">{splitWords("Solutions that make people's lives easier")}</p>
-          <p className="scroll-reveal-text">{splitWords("Projects with real-world impact")}</p>
-          <p className="scroll-reveal-text">
-            {splitWords("Skills through late-night study sessions and tricky algorithms")}
-          </p>
-        </section>
+      {/* Ceiling mount */}
+      <div className="ceiling-mount"></div>
+      
+      {/* Cable */}
+      <div className="lamp-cable"></div>
+      
+      {/* Lamp shade with floating light */}
+      <div className="lamp-shade">
+        <div ref={lightRef} className="lamp-light"></div>
+      </div>
+      
+      {/* Glow effects */}
+      <div className="lamp-glow"></div>
+      <div className="lamp-glow-floor"></div>
+      
+      {/* Welcome text */}
+      <div className="welcome-text">
+        <h1>Welcome to My Portfolio</h1>
+        <p>Explore my work and skills</p>
       </div>
     </div>
   );

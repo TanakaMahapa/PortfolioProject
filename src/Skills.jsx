@@ -34,30 +34,26 @@ const SKILLS = [
 const SkillsCarousel = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [filteredSkills, setFilteredSkills] = useState(SKILLS);
+  const [trackWidth, setTrackWidth] = useState(0);
+
   const carouselRef = useRef(null);
-  const trackRef = useRef(null);
   const x = useMotionValue(0);
 
-  // Calculate required track width
-  const calculateTrackWidth = () => {
-    const itemWidth = 200; // Match your CSS min-width
-    const gap = 32; // 2rem gap
-    return filteredSkills.length * (itemWidth + gap) - gap;
-  };
-
-  // Update when filtered skills change
+  // Recalculate filtered skills and track width
   useEffect(() => {
-    if (activeCategory === "All") {
-      setFilteredSkills(SKILLS);
-    } else {
-      setFilteredSkills(SKILLS.filter(skill => skill.category === activeCategory));
-    }
-    
-    // Reset position and update track width
+    const updatedSkills =
+      activeCategory === "All"
+        ? SKILLS
+        : SKILLS.filter(skill => skill.category === activeCategory);
+
+    setFilteredSkills(updatedSkills);
+
+    const itemWidth = 200;
+    const gap = 32;
+    const width = updatedSkills.length * (itemWidth + gap) - gap;
+    setTrackWidth(width);
+
     x.set(0);
-    if (trackRef.current) {
-      trackRef.current.style.width = `${calculateTrackWidth()}px`;
-    }
   }, [activeCategory, x]);
 
   const categories = ["All", ...new Set(SKILLS.map(skill => skill.category))];
@@ -65,16 +61,18 @@ const SkillsCarousel = () => {
   return (
     <div className="skills-container">
       <HourGlassBackground />
-      
+
       <div className="skills-content">
         <h2 className="skills-title">🛠️ My Technical Skills</h2>
-        <p className="skills-subtitle">Drag to explore my proficiency across technologies</p>
-        
+        <p className="skills-subtitle">
+          Drag to explore my proficiency across technologies
+        </p>
+
         <div className="category-filters">
           {categories.map(category => (
             <button
               key={category}
-              className={`category-btn ${activeCategory === category ? 'active' : ''}`}
+              className={`category-btn ${activeCategory === category ? "active" : ""}`}
               onClick={() => setActiveCategory(category)}
             >
               {category}
@@ -83,18 +81,17 @@ const SkillsCarousel = () => {
         </div>
 
         <div className="skills-carousel" ref={carouselRef}>
-          <motion.div 
+          <motion.div
             className="skills-track"
-            ref={trackRef}
             drag="x"
+            style={{ x }}
             dragConstraints={{
-              left: -(calculateTrackWidth() - (carouselRef.current?.offsetWidth || 0)),
+              left: -(trackWidth - (carouselRef.current?.offsetWidth || 0)),
               right: 0
             }}
-            style={{ x }}
           >
             {filteredSkills.map((skill, index) => (
-              <motion.div 
+              <motion.div
                 key={index}
                 className="skill-card"
                 whileHover={{ scale: 1.05 }}
@@ -102,11 +99,11 @@ const SkillsCarousel = () => {
               >
                 <div className="skill-icon-container">
                   {skill.icon ? (
-                    <img 
-                      src={skill.icon} 
+                    <img
+                      src={skill.icon}
                       alt={skill.name}
                       className="skill-icon"
-                      onError={(e) => e.target.style.display = 'none'}
+                      onError={(e) => (e.target.style.display = "none")}
                     />
                   ) : (
                     <div className="skill-icon-fallback">{skill.name.charAt(0)}</div>
@@ -114,8 +111,8 @@ const SkillsCarousel = () => {
                 </div>
                 <h3 className="skill-name">{skill.name}</h3>
                 <div className="skill-level-container">
-                  <div 
-                    className="skill-level-bar" 
+                  <div
+                    className="skill-level-bar"
                     style={{ width: `${skill.level}%` }}
                   />
                   <span className="skill-level-text">{skill.level}%</span>

@@ -2,6 +2,8 @@ import './About.css';
 import HourGlassBackground from "./CodeRain";
 import MyImg from './IconsAssets/MyImg.jpg';
 
+// import one from './ProjectImages/Prj1.jpg';
+
 
 
 function About() { 

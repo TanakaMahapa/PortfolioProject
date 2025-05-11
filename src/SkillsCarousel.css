@@ -36,8 +36,8 @@
 
 .category-btn {
   padding: 0.5rem 1.5rem;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: #fff;
   border-radius: 50px;
   cursor: pointer;
@@ -65,12 +65,13 @@
 
 .skill-card {
   min-width: 200px;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   border-radius: 1rem;
   padding: 1.5rem;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   flex-shrink: 0;
+  transition: transform 0.2s;
 }
 
 .skill-icon-container {
@@ -78,7 +79,7 @@
   height: 60px;
   margin: 0 auto 1.5rem;
   border-radius: 50%;
-  background:  white;
+  background: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -100,11 +101,18 @@
   background: #E50814;
   color: white;
   font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.skill-name {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 0.5rem;
 }
 
 .skill-level-container {
   height: 8px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
   margin-top: 1rem;
   position: relative;
@@ -124,13 +132,24 @@
   font-size: 0.8rem;
 }
 
+/* Responsive design for mobile devices */
 @media (max-width: 768px) {
   .skills-container {
     padding: 80px 1rem;
   }
-  
+
   .skill-card {
     min-width: 160px;
     padding: 1rem;
+  }
+
+  .skill-icon-container {
+    width: 50px;
+    height: 50px;
+  }
+
+  .skill-icon {
+    width: 30px;
+    height: 30px;
   }
 }
