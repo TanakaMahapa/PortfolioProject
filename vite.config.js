@@ -6,8 +6,10 @@ export default defineConfig({
   base: './', // Ensures relative paths are used
   build: {
     outDir: 'dist',
-    rollupOptions: {
-      input: '/index.html', // Ensure the correct input file
+  },
+  server: {
+    mimeTypes: {
+      '.js': 'text/javascript',
     },
   },
 });
