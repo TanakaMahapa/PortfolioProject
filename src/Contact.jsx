@@ -10,10 +10,10 @@ function ContactSection() {
     e.preventDefault();
 
     emailjs.sendForm(
-      'service_2g2wrlo',
-      'template_7p50cxd',
-      form.current,
-      'Ur93kvcmC1e1rtFEh'
+      'service_2g2wrlo', // Your EmailJS service ID
+      'template_7p50cxd', // Your EmailJS template ID
+      form.current, 
+      'Ur93kvcmC1e1rtFEh' // Your EmailJS public key
     ).then(
       () => {
         alert("Message sent successfully!");
@@ -21,7 +21,7 @@ function ContactSection() {
       },
       (error) => {
         alert("Failed to send message. Please try again.");
-        console.error(error.text);
+        console.error("EmailJS Error: ", error.text);
       }
     );
   };
@@ -29,15 +29,24 @@ function ContactSection() {
   return (
     <div className="contact-section">
       <HourGlassBackground />
-      
+
       <div className="form-container">
-        <h2 className="form-title">Get in touch</h2>
+        <h2 className="form-title">Get in Touch</h2>
         <form ref={form} onSubmit={sendEmail} className="form-grid">
-          <input type="text" name="name" placeholder="Name" className="form-input" required />
-          <input type="text" name="lastName" placeholder="Last name" className="form-input" required />
-          <input type="email" name="email" placeholder="Email" className="form-input" required />
-          <input type="text" name="phone" placeholder="Phone number" className="form-input" />
-          <textarea name="message" placeholder="Message" rows="5" className="form-textarea" required></textarea>
+          <input 
+            type="text" 
+            name="name" 
+            placeholder="Name" 
+            className="form-input" 
+            required 
+          />
+          <textarea 
+            name="message" 
+            placeholder="Message" 
+            rows="5" 
+            className="form-textarea" 
+            required
+          ></textarea>
           <div className="form-button-wrapper">
             <button className="submit-button" type="submit">Submit</button>
           </div>
