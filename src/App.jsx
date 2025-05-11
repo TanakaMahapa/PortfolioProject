@@ -9,6 +9,7 @@ import Skills from './Skills.jsx';
 import ContactSection from './Contact.jsx';
 import './variables.css';
 import './base.css';
+import IntroAnimation from './IntroAnimation.jsx';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
       <Nav />
       <Routes>
         {/* Set Home as the root (/) */}
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<IntroAnimation />} />
+        <Route path="/home" element={<Home />} />
         {/* Profile page as /profile */}
         <Route path="/profile" element={<Profile />} />
         <Route path="/about" element={<About />} />
