@@ -1,6 +1,6 @@
 .portfolio-header {
   width: 100%;
-  padding: 0.5rem 0;
+  padding: 0.5rem 1rem;
   background-color: #1a1a1a;
   color: white;
   font-family: 'Bebas Neue', sans-serif;
@@ -9,6 +9,9 @@
   top: 0;
   left: 0;
   z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .portfolio-name {
@@ -20,15 +23,28 @@
   font-weight: 400;
 }
 
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
 .portfolio-nav {
   margin: 0 auto;
-  max-width: 600px;
+  max-width: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav-row {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 1.5rem;
   padding: 0.2rem 0;
 }
 
@@ -58,15 +74,44 @@
   user-select: none;
 }
 
-/* Responsive adjustments */
+/* Mobile Responsive Styles */
 @media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .portfolio-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #1a1a1a;
+    max-height: 0;
+    overflow: hidden;
+    flex-direction: column;
+    transition: max-height 0.3s ease;
+  }
+
+  .portfolio-nav.open {
+    max-height: 300px;
+  }
+
+  .nav-row {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .nav-cell {
+    padding: 0.5rem 0;
+    font-size: 1.2rem;
+  }
+
+  .nav-divider {
+    display: none;
+  }
+
   .portfolio-name {
     font-size: 1.5rem;
-  }
-  
-  .nav-cell {
-    font-size: 0.9rem;
-    padding: 0 0.6rem;
   }
 }
 
@@ -75,18 +120,13 @@
     font-size: 1.3rem;
     margin: 0.2rem 0;
   }
-  
+
   .nav-row {
-    flex-wrap: wrap;
-    padding: 0.1rem 0;
+    flex-wrap: nowrap;
   }
-  
-  .nav-divider {
-    display: none;
-  }
-  
+
   .nav-cell {
-    padding: 0.2rem 0.5rem;
-    font-size: 0.8rem;
+    font-size: 1rem;
+    padding: 0.4rem 0;
   }
 }

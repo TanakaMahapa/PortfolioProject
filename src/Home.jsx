@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Home.css';
-import RollingGallery from './RollingGallery';
+import HourGlassBackground from "./CodeRain";  // Import the CodeRain component
 import Prj1 from './ProjectImages/Prj1.png';
 import Prj2 from './ProjectImages/Prj2.jpg';
 import Prj3 from './ProjectImages/Prj3.png';
@@ -85,6 +85,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
+      <HourGlassBackground />  {/* Include CodeRain */}
       <div ref={containerRef} className="scroll-reveal">
         <section className="content-section">
           <h3 className="section-title">Who I Am</h3>
@@ -110,8 +111,6 @@ const Home = () => {
             {splitWords("Skills through late-night study sessions and tricky algorithms")}
           </p>
         </section>
-
-        <RollingGallery autoplay={true} pauseOnHover={true} />
       </div>
     </div>
   );

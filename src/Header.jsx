@@ -7,7 +7,6 @@ function Nav() {
   return (
     <header className="portfolio-header">
       <h1 className="portfolio-name">TANAKA MAHAPA</h1>
-      
       <nav className="portfolio-nav">
         <div className="nav-row">
           <Link 
@@ -15,6 +14,13 @@ function Nav() {
             className={`nav-cell ${location.pathname === '/' ? 'active' : ''}`}
           >
             HOME
+          </Link>
+          <span className="nav-divider">|</span>
+          <Link 
+            to="/profile" 
+            className={`nav-cell ${location.pathname === '/profile' ? 'active' : ''}`}
+          >
+            PROFILE
           </Link>
           <span className="nav-divider">|</span>
           <Link 
