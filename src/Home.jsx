@@ -32,7 +32,7 @@ const Home = () => {
       <div className="lamp-glow-floor"></div>
       <div className="welcome-text">
         <h1>Welcome to My Portfolio</h1>
-        <p>Explore my work and skills</p>
+        <p></p>
       </div>
     </div>
   );

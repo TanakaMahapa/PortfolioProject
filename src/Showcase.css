@@ -113,6 +113,34 @@
   background-color: var(--accent-red-light);
 }
 
+.github-link {
+  color: #58a6ff;
+  margin-left: 8px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.github-link:hover {
+  color: #79b8ff;
+  text-decoration: underline;
+}
+
+.github-project-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: rgba(88, 166, 255, 0.1);
+  color: #58a6ff;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.github-project-link:hover {
+  background-color: rgba(88, 166, 255, 0.2);
+  text-decoration: underline;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .showcase-container {
