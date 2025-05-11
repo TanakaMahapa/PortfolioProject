@@ -5,7 +5,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #141414;
   color: white;
   position: relative;
 }
@@ -54,8 +53,8 @@
   margin-bottom: 0.8rem;
   transition: all 0.3s ease;
   position: relative;
-  background-color: #333;
-  border: 3px solid transparent;
+
+  
 }
 
 .profile-image {
