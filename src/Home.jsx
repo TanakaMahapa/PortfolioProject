@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import './Home.css';
+import HourGlassBackground from "./CodeRain";
 
 const Home = () => {
   const lightRef = useRef(null);
@@ -21,22 +22,14 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      {/* Ceiling mount */}
+      <HourGlassBackground />
       <div className="ceiling-mount"></div>
-      
-      {/* Cable */}
       <div className="lamp-cable"></div>
-      
-      {/* Lamp shade with floating light */}
       <div className="lamp-shade">
         <div ref={lightRef} className="lamp-light"></div>
       </div>
-      
-      {/* Glow effects */}
       <div className="lamp-glow"></div>
       <div className="lamp-glow-floor"></div>
-      
-      {/* Welcome text */}
       <div className="welcome-text">
         <h1>Welcome to My Portfolio</h1>
         <p>Explore my work and skills</p>

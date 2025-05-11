@@ -32,68 +32,73 @@
   z-index: 10;
 }
 
-/* Lamp shade (upside down) */
+/* Lamp shade */
 .lamp-shade {
   position: absolute;
   top: 220px;
   left: 50%;
   transform: translateX(-50%);
-  width: 150px;
-  height: 100px;
+  width: 180px;
+  height: 120px;
   background: rgba(50,50,50,0.8);
   border-radius: 10% 10% 50% 50%;
   border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 10px 30px rgba(229,8,20,0.3);
+  box-shadow: 0 10px 50px rgba(229,8,20,0.5); /* GLOW INTENSITY - Increase last value (0-1) */
   overflow: hidden;
   z-index: 10;
+  animation: swing 5s ease-in-out infinite;
+  transform-origin: top center;
 }
 
-/* Lamp light - Netflix red */
+/* MAIN LIGHT BULB - Adjust these values for glow */
 .lamp-light {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 200px;
-  height: 200px;
+  width: 300px; /* GLOW SIZE - Increase for wider glow */
+  height: 300px; /* GLOW SIZE - Increase for taller glow */
   background: radial-gradient(
     circle, 
-    rgba(229, 8, 20, 0.9),
-    rgba(229, 8, 20, 0.5) 50%, 
-    transparent 80%
+    rgba(229, 8, 20, 0.95), /* CENTER INTENSITY - Increase opacity (0-1) */
+    rgba(229, 8, 20, 0.7) 40%, /* MIDDLE GLOW - Adjust percentage for falloff */
+    rgba(229, 8, 20, 0.4) 70%, /* OUTER EDGE - Adjust percentage for spread */
+    transparent 90% /* GLOW FADEOUT - Increase for longer fade */
   );
   border-radius: 50%;
   transform: translate(-50%, -50%);
   transition: transform 0.1s ease-out;
-  filter: blur(10px);
+  filter: blur(25px); /* GLOW SOFTNESS - Increase for more diffusion */
   z-index: 5;
 }
 
-/* Glow effects */
+/* OVERHEAD GLOW - Adjust these for ceiling illumination */
 .lamp-glow {
   position: absolute;
   top: 220px;
   left: 50%;
   transform: translateX(-50%);
-  width: 300px;
-  height: 300px;
+  width: 500px; /* GLOW RADIUS - Increase for wider spread */
+  height: 500px; /* GLOW RADIUS - Increase for taller spread */
   background: radial-gradient(
     circle, 
-    rgba(229, 8, 20, 0.3),
-    transparent 70%
+    rgba(229, 8, 20, 0.4), /* CENTER INTENSITY */
+    rgba(229, 8, 20, 0.2) 50%,
+    transparent 80% /* FADEOUT POINT */
   );
   z-index: 1;
 }
 
+/* FLOOR GLOW - Adjust these for ground illumination */
 .lamp-glow-floor {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 200px;
+  height: 300px; /* GLOW HEIGHT - Increase for taller glow */
   background: linear-gradient(
     to top, 
-    rgba(229, 8, 20, 0.2), 
-    transparent
+    rgba(229, 8, 20, 0.3), /* INTENSITY - Increase opacity */
+    transparent 70% /* FADEOUT POINT */
   );
   z-index: 2;
 }
@@ -106,8 +111,8 @@
   width: 100%;
   text-align: center;
   color: white;
-  z-index: 5;
-  text-shadow: 0 0 15px rgba(229, 8, 20, 0.7);
+  z-index: 15;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 .welcome-text h1 {
@@ -126,15 +131,12 @@
   50% { transform: translateX(-50%) rotate(2deg); }
 }
 
-.lamp-shade {
-  animation: swing 5s ease-in-out infinite;
-  transform-origin: top center;
-}
-
 /* Responsive design */
 @media (max-width: 768px) {
   .lamp-cable { height: 150px; }
-  .lamp-shade { top: 170px; width: 120px; height: 80px; }
+  .lamp-shade { top: 170px; width: 140px; height: 90px; }
+  .lamp-light { width: 250px; height: 250px; filter: blur(20px); }
+  .lamp-glow { width: 400px; height: 400px; }
   .welcome-text h1 { font-size: 2rem; }
   .welcome-text p { font-size: 1.2rem; }
 }
